@@ -1,0 +1,161 @@
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct clothes
+{
+    char name_brand[20];
+    float MRP;
+    float discount;
+    struct clothes *link;
+}*NODE;
+
+
+void main()
+{
+    NODE head=NULL;
+    int ch,cnt=0;
+    while(1)
+    {
+        printf("1.Add at the beginning\n2.Add at the end\n3.Delete at the end\n4.Delete at the beginning\n5.Count\n6.Display\n7.Exit\n");
+        printf("Enter the choice\n");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+            case 1:printf("Add at the Beginnig :\n");
+                   add_front(head);
+                   break;
+            case 2:printf("Add at the End:\n");
+                   Add_end(head);
+                   break;
+            case 3:printf("Delete at End :\n");
+                   Delete_end(head);
+                   break;
+            case 4:printf("Delete at the Beginning :\n");
+                   Delete_front(head);
+            case 5:Printf("Count :\n");
+                    cnt=count(head);
+                    printf("Number of clothes are :%d\n",cnt);
+                    break;
+            case 6:printf("Display the list :\n);
+                   display(head);
+                   break;
+            case 7:exit(0);
+                    break;
+            default :printf("Invalid choice\n");
+                     break;
+        }
+    }
+    free(head);
+}
+
+NODE getnode()
+{
+    NODE temp;
+    temp=(NODE)malloc(sizeof(struct clothes));
+    if(temp==NULL)
+    {
+        return NULL;
+    }
+    else
+    {
+    printf("Enter the brand name\n");
+    scanf("%s",temp->name_brand);
+    printf("Enter the Maximum Retail Price(MRP)\n");
+    scanf("%f",&temp->MRP);
+    printf("Enter the Discount\n");
+    scanf("%f",&temp->discount);
+        temp->link=NULL;
+        temp->link=NULL;
+        return temp;
+    }
+}
+NODE A_front(NODE head)
+{
+    NODE new;
+    new=getnode();
+    new-> next=NULL;
+    if(head==NULL)
+    {
+        return new;
+    }
+    new->new=head;
+    head=new;
+    return head;
+}
+NODE Add_end(NODE head)
+{
+    NODE *new,*cur;
+    new=getnode();
+    new->new=NULL;
+    if(head==NULL)
+    {
+        return new;
+    }
+    cur=head;
+    while(cur->next!=NULL)
+    {
+        cur=cur->next;
+    }
+   cur->next=new;
+    return head;
+}
+NODE Delete_end(NODE head)
+{
+    if(head==NULL)
+    {
+        printf("Emtpy list\n");
+        return head;
+    }
+    else if(head->next==NULL)
+    {
+        free(head);
+        return NULL;
+    }
+    else
+    {
+        NODE *prev,*curr;
+        *prev=NULL;curr=head;
+        while(curr->head!=NULL)
+        {
+            prev=curr;
+            curr=curr->next;
+        }
+        free(curr);
+        prev->next=NULL;
+        return head;
+    }
+}
+NODE Delete_front(NODE head)
+{
+    head=head->next;
+    free(ptr);
+    return head;
+}
+
+int count(NODE head)
+{
+    int cnt=0;
+    NODE cur=head;
+    while(cur!=NULL)
+    {
+        cnt++;
+        cur=cur->next;
+    }
+    return cnt;
+}
+
+void display(NODE head)
+{
+    NODE cur;
+    if(head==NULL)
+    {
+        printf("List is empty\n");
+    }
+    cur=head;
+    while(cur!=NULL)
+    {
+        printf("Brand name is %s\n",cur->name_brand);
+        printf("Maximun Retail Price(MRP) is %f\n"cur->MRP);
+        printf("Discount is %f\n"cur->discount);
+        cur=cur->link;
+    }
+}
