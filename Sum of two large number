@@ -1,0 +1,61 @@
+#include<stdio.h>
+#include<string.h>
+
+int carry=0;
+char sum[50];
+int s;
+
+void equal(char N1[50], char N2[50], int m, int n)
+{
+    for(int i=m-1;i>=0;i--)
+        {
+            s=(N1[i]-'0')+(N2[i]-'0')+carry;
+            carry=s/10;
+            sum[i+1]=(s%10+'0');
+        }
+        sum[0]=(carry+'0');
+        printf(" %s\n",sum);
+}
+void not_equal(char N1[50], char N2[50], int m, int n)
+{
+    for(int i=0;i<n;i++)
+        {
+            sum[i]=N2[i];
+        }
+        for(int i=m-1;i>=0;i--)
+        {
+            s=(N1[i]-'0')+(N2[i+(n-m)]-'0')+carry;
+            carry=s/10;
+            sum[i+(n-m)]=(s%10+'0');
+        }
+        printf(" %s\n",sum);
+}
+int main()
+{
+    char N1[50];
+    char N2[50];
+    int m, n;
+    printf("Enter the first number\n");
+    gets(N1);
+    printf("Enter the second number\n");
+    gets(N2);
+    m=strlen(N1);
+    n=strlen(N2);
+    if(n==m)
+    {
+        printf("\nSum is of %s and %s is",N1,N2);
+        equal(N1,N2,m,n);
+    }
+    else if(n>m)
+    {
+        printf("\nSum is of %s and %s is",N1,N2);
+        not_equal(N1,N2,m,n);
+    }
+
+    else
+    {
+        printf("\nSum is of %s and %s is",N1,N2);
+        not_equal(N2,N1,n,m);
+    }
+    return 0;
+}
